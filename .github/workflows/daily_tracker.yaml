@@ -1,45 +1,45 @@
 name: Daily Paper Tracker
 
 on:
-    # push:
-    #   branches:
-    #     - master
-    schedule:
-      - cron: "58 0 * * *"
-    workflow_dispatch:
+  # push:
+  #   branches:
+  #     - master
+  # schedule:
+  #   - cron: "58 0 * * *"
+  workflow_dispatch:
 
 permissions:
-    contents: write
+  contents: write
 
 jobs:
-    run-tracker:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v4
+  run-tracker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                  python-version: "3.12"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-            - name: Install Dependencies
-              run: |
-                  pip install requests openai
+      - name: Install Dependencies
+        run: |
+          pip install requests openai
 
-            - name: Run Script
-              env:
-                  S2_API_KEY: ${{ secrets.S2_API_KEY }}
-                  LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-                  SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}
-              run: python3 paper_tracker.py
+      - name: Run Script
+        env:
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}
+        run: python3 paper_tracker.py
 
-            - name: Commit and push history
-              if: ${{ success() }}
-              run: |
-                  git config --global user.name 'github-actions[bot]'
-                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-                  mkdir -p config
-                  touch config/seen_papers.txt
-                  git add config/seen_papers.txt
-                  git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update seen papers history" && git push)
+      - name: Commit and push history
+        if: ${{ success() }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          mkdir -p config
+          touch config/seen_papers.txt
+          git add config/seen_papers.txt
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update seen papers history" && git push)
