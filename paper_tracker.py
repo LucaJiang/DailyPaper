@@ -102,7 +102,7 @@ def get_paper_recommendations():
 
     unseen_papers.sort(key=get_date, reverse=True)
 
-    print(f"筛选后剩余 {len(unseen_papers)} 篇未读论文，正在获取 TLDR...")
+    # print(f"筛选后剩余 {len(unseen_papers)} 篇未读论文，正在获取 TLDR...")
 
     # 只取前 10 篇最新的
     top_new_papers = unseen_papers[:10]
@@ -140,7 +140,12 @@ def get_paper_recommendations():
 
 def summarize_papers_with_llm(papers):
     """调用大模型进行总结"""
-    client = OpenAI(api_key=LLM_API_KEY, base_url="https://api.deepseek.com")
+    client = OpenAI(
+        api_key=LLM_API_KEY, base_url="https://api.deepseek.com"
+    )  # deepseek
+    # client = OpenAI(
+    #     api_key=LLM_API_KEY, base_url="https://api.siliconflow.cn/v1"
+    # )  # siliconflow
 
     report_content = ""
     for idx, paper in enumerate(papers):
@@ -194,7 +199,9 @@ TLDR: {tldr_text or "无"}
 """
 
         response = client.chat.completions.create(
-            model="deepseek-chat", messages=[{"role": "user", "content": prompt}]
+            model="deepseek-chat",
+            # model="deepseek-ai/DeepSeek-V3.2",
+            messages=[{"role": "user", "content": prompt}],
         )
 
         summary = response.choices[0].message.content

@@ -2,7 +2,7 @@
 
 这是一个基于 `GitHub Actions` 的全自动化科研追踪工具。它利用 Semantic Scholar 的推荐 API，根据你设定的“种子论文”自动找到最新相关的研究工作，并利用大语言模型（如 DeepSeek）生成中文深度总结，最后每天准时将内容推送到你的微信上。
 
-广告：使用我的硅基流动链接注册并实名认证可以获得16元人民币的任意AI模型 （包括DeepSeek） 试用额度！[[点击注册](https://cloud.siliconflow.cn/i/5eXyqjuv)](https://cloud.siliconflow.cn/i/5eXyqjuv)。也可以在vscode、cursor、notion等工具中使用。
+广告：使用我的硅基流动链接注册并实名认证可以获得16元人民币的任意AI模型 （包括DeepSeek） 试用额度！[[点击注册](https://cloud.siliconflow.cn/i/5eXyqjuv)](https://cloud.siliconflow.cn/i/5eXyqjuv) 。也可以在vscode、cursor、notion等工具中使用。
 
 ---
 
